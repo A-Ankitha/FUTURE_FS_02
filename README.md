@@ -152,17 +152,6 @@ POST   /api/public/contact             { name, email, phone, company, source, se
 
 All routes except `/api/auth/register`, `/api/auth/login`, and `/api/public/contact` require `Authorization: Bearer <token>`.
 
-## Screenshots
-
-_Add screenshots here after running the app locally:_
-- Landing page
-- Dashboard
-- Leads table with filters
-- Lead detail page (notes + activity timeline)
-- Follow-ups board
-- Analytics page
-- Dark mode
-
 ## Future Improvements
 
 - Email notifications for new leads and upcoming follow-ups
@@ -170,27 +159,3 @@ _Add screenshots here after running the app locally:_
 - Automated lead scoring based on engagement signals
 - Integrations with email/calendar providers
 - Real password-change and profile-update endpoints (currently UI-only placeholders in Settings)
-
-## Project Status — All 18 Phases Complete
-
-- [x] Phase 1 — Architecture & setup
-- [x] Phase 2 — Backend config & MongoDB connection
-- [x] Phase 3 — Database models
-- [x] Phase 4 — Authentication
-- [x] Phase 5 — Lead REST APIs (CRUD, search, filter, sort, pagination)
-- [x] Phase 6 — Notes, activities, follow-ups
-- [x] Phase 7 — Analytics APIs
-- [x] Phase 8 — React frontend setup
-- [x] Phase 9 — Authentication UI
-- [x] Phase 10 — Dashboard
-- [x] Phase 11 — Lead management
-- [x] Phase 12 — Lead details
-- [x] Phase 13 — Follow-ups
-- [x] Phase 14 — Analytics
-- [x] Phase 15 — Landing page & contact form
-- [x] Phase 16 — Responsive design & UX polish
-- [x] Phase 17 — Testing and debugging (syntax-checked, all routers verified to mount, full frontend build passes with zero errors)
-- [x] Phase 18 — README & deployment preparation
-
-**Note on Phase 17 testing:** this sandbox has no local MongoDB instance available, so live end-to-end API testing (e.g. via Postman) against real data hasn't been run by the assistant. Every backend module has been syntax-checked and verified to load/mount into Express without errors, and the full frontend build compiles cleanly. Before considering this portfolio-ready, run through the app locally end-to-end once your `MONGO_URI` is connected — create/edit/delete a lead, add a note, change status, submit the public contact form, and check the analytics numbers update.
-# FUTURE_FS_02
