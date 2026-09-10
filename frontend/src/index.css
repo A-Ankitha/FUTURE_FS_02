@@ -3,22 +3,28 @@
 @tailwind utilities;
 
 :root {
-  /* Light mode - Pastel SaaS */
+  /* Light mode - Accessible Pastel SaaS */
   --color-background: #FAF9FC;
-  --color-sidebar: #F5F2FA;
+  --color-sidebar: #F4F0FA;
   --color-surface: #FFFFFF;
   --color-elevated: #FFFFFF;
-  --color-lavender: #7C6EE6;
-  --color-lavender-light: #E9E5FA;
-  --color-mint: #A8D5C2;
-  --color-mint-light: #E3F2EB;
-  --color-blue: #B9D4EE;
-  --color-blue-light: #E8F2FA;
-  --color-peach: #F4C6A8;
-  --color-rose: #F1B8CC;
+
+  /* Pastel accents with darker, readable foregrounds */
+  --color-lavender: #6658C7;
+  --color-lavender-light: #EEEAFE;
+
+  --color-mint: #347A61;
+  --color-mint-light: #E6F4EE;
+
+  --color-blue: #35658F;
+  --color-blue-light: #EAF3FA;
+
+  --color-peach: #A95F38;
+  --color-rose: #A94368;
+
   --color-text-primary: #252333;
-  --color-text-secondary: #77738A;
-  --color-border: #E8E4EF;
+  --color-text-secondary: #625E73;
+  --color-border: #DDD8E8;
 }
 
 .dark {
