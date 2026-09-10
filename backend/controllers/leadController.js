@@ -2,12 +2,18 @@ const Lead = require('../models/Lead');
 const Activity = require('../models/Activity');
 const Note = require('../models/Note');
 
-// Builds a Mongoose filter object from query params shared by list endpoints.
+const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 const buildFilter = (query) => {
   const filter = {};
 
-  if (query.search) {
-    filter.$text = { $search: query.search };
+  if (query.search && query.search.trim()) {
+    const searchRegex = new RegExp(escapeRegex(query.search.trim()), 'i');
+    filter.$or = [
+      { name: searchRegex },
+      { email: searchRegex },
+      { company: searchRegex },
+    ];
   }
   if (query.status && query.status !== 'All') {
     filter.status = query.status;
@@ -27,7 +33,6 @@ const buildFilter = (query) => {
   return filter;
 };
 
-// Maps the frontend's sort keyword to a Mongoose sort object.
 const buildSort = (sort) => {
   switch (sort) {
     case 'oldest':
@@ -35,8 +40,6 @@ const buildSort = (sort) => {
     case 'name':
       return { name: 1 };
     case 'priority': {
-      // Custom priority order isn't natively sortable, so we sort in the
-      // controller after fetching when this is requested (see getLeads).
       return null;
     }
     case 'followUpDate':
@@ -147,8 +150,6 @@ const updateLead = async (req, res, next) => {
       author: req.user._id,
     });
 
-    // If the update included a status change via the generic PUT route,
-    // log it distinctly too (PATCH /status is the primary path for this).
     if (req.body.status && req.body.status !== previousStatus) {
       await Activity.create({
         lead: lead._id,
