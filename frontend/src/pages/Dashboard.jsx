@@ -49,10 +49,14 @@ export default function Dashboard() {
     };
   }, []);
 
-  const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  const today = new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  });
 
   return (
-    <DashboardLayout title={`Good morning, ${user?.name || 'Admin'}`} subtitle="Here's what's happening with your leads today.">
+    <DashboardLayout title={`Good morning, ${user?.name || 'Admin'}`} subtitle="A quick overview of your lead pipeline and today's priorities.">
       <p className="text-sm text-text-secondary mb-6">{today}</p>
 
       {loading ? (
@@ -73,11 +77,25 @@ export default function Dashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
         <div className="bg-surface border border-border rounded-2xl p-5 shadow-card">
-          <h3 className="font-semibold text-text-primary mb-4">Lead Status Distribution</h3>
+          <div className="mb-4">
+            <h3 className="font-semibold text-text-primary">
+              Lead Status Distribution
+            </h3>
+            <p className="text-xs text-text-secondary mt-1">
+              See how your current leads are progressing through the pipeline.
+            </p>
+          </div>
           <StatusPieChart data={statusData} />
         </div>
         <div className="bg-surface border border-border rounded-2xl p-5 shadow-card">
-          <h3 className="font-semibold text-text-primary mb-4">Leads by Source</h3>
+          <div className="mb-4">
+            <h3 className="font-semibold text-text-primary">
+              Leads by Source
+            </h3>
+            <p className="text-xs text-text-secondary mt-1">
+              See which channels are generating your leads.
+            </p>
+          </div>
           <SourceBarChart data={sourceData} />
         </div>
       </div>
@@ -93,7 +111,14 @@ export default function Dashboard() {
           <RecentLeads leads={recentLeads} />
         </div>
         <div className="bg-surface border border-border rounded-2xl p-5 shadow-card">
-          <h3 className="font-semibold text-text-primary mb-4">Upcoming Follow-ups</h3>
+          <div className="mb-4">
+            <h3 className="font-semibold text-text-primary">
+              Upcoming Follow-ups
+            </h3>
+            <p className="text-xs text-text-secondary mt-1">
+              Stay on top of scheduled conversations.
+            </p>
+          </div>
           <UpcomingFollowUps overdue={followUps.overdue} upcoming={followUps.upcoming} />
         </div>
       </div>
