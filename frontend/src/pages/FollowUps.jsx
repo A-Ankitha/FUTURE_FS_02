@@ -15,9 +15,19 @@ function FollowUpCard({ lead, onReschedule, overdue }) {
       className={`bg-surface border rounded-xl p-4 ${overdue ? 'border-rose/40' : 'border-border'}`}
     >
       <div className="flex items-start justify-between gap-2">
-        <div className="min-w-0 cursor-pointer" onClick={() => navigate(`/leads/${lead._id}`)}>
-          <p className="font-medium text-text-primary text-sm truncate">{lead.name}</p>
-          <p className="text-xs text-text-secondary truncate">{lead.company || lead.email}</p>
+        <div className="min-w-0">
+          <button
+            type="button"
+            onClick={() => navigate(`/leads/${lead._id}`)}
+            className="text-left max-w-full"
+          >
+            <p className="font-medium text-text-primary text-sm truncate hover:text-lavender">
+              {lead.name}
+            </p>
+            <p className="text-xs text-text-secondary truncate">
+              {lead.company || lead.email}
+            </p>
+          </button>
         </div>
         <PriorityBadge priority={lead.priority} />
       </div>
@@ -27,9 +37,12 @@ function FollowUpCard({ lead, onReschedule, overdue }) {
         </span>
         <StatusBadge status={lead.status} />
       </div>
+      <p className="text-[11px] font-medium text-text-secondary mt-3 mb-1">Reschedule</p>
       <input
         type="date"
+        min={new Date().toISOString().split('T')[0]}
         defaultValue={lead.followUpDate ? lead.followUpDate.slice(0, 10) : ''}
+        aria-label={`Reschedule follow-up for ${lead.name}`}
         onChange={(e) => e.target.value && onReschedule(lead._id, e.target.value)}
         className="w-full mt-3 px-2.5 py-1.5 rounded-lg border border-border bg-background text-text-primary text-xs focus:outline-none focus:ring-2 focus:ring-lavender/50"
       />
