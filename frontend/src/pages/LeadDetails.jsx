@@ -134,19 +134,29 @@ export default function LeadDetails() {
             </div>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <select
-              value={lead.status}
-              onChange={(e) => handleStatusChange(e.target.value)}
-              className="px-3 py-2 rounded-xl border border-border bg-background text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-lavender/50"
-            >
-              {STATUSES.map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
+            <div className="flex items-center gap-2">
+              <label
+                htmlFor="lead-status"
+                className="text-xs font-medium text-text-secondary"
+              >
+                Status
+              </label>
+              <select
+                id="lead-status"
+                value={lead.status}
+                onChange={(e) => handleStatusChange(e.target.value)}
+                className="px-3 py-2 rounded-xl border border-border bg-background text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-lavender/50"
+              >
+                {STATUSES.map((s) => (
+                  <option key={s} value={s}>{s}</option>
+                ))}
+              </select>
+            </div>
             <button
               onClick={() => setEditOpen(true)}
               className="p-2 rounded-xl border border-border text-text-secondary hover:text-blue hover:border-blue"
               aria-label="Edit lead"
+              title="Edit lead"
             >
               <Pencil size={15} />
             </button>
@@ -154,6 +164,7 @@ export default function LeadDetails() {
               onClick={() => setDeleteOpen(true)}
               className="p-2 rounded-xl border border-border text-text-secondary hover:text-rose hover:border-rose"
               aria-label="Delete lead"
+              title="Delete lead"
             >
               <Trash2 size={15} />
             </button>
@@ -178,7 +189,9 @@ export default function LeadDetails() {
           {lead.message && (
             <div className="bg-surface border border-border rounded-2xl shadow-card p-5">
               <h3 className="font-semibold text-text-primary mb-2 text-sm">Original Message</h3>
-              <p className="text-sm text-text-secondary">{lead.message}</p>
+              <p className="text-sm text-text-secondary leading-relaxed whitespace-pre-wrap">
+                {lead.message}
+              </p>
             </div>
           )}
         </div>
@@ -192,13 +205,15 @@ export default function LeadDetails() {
             ].map((t) => (
               <button
                 key={t.key}
+                type="button"
                 onClick={() => setTab(t.key)}
+                aria-selected={tab === t.key}
                 className={`px-3 py-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
-                  tab === t.key ? 'border-lavender text-lavender' : 'border-transparent text-text-secondary hover:text-text-primary'
+                  tab === t.key
+                    ? 'border-lavender text-lavender'
+                    : 'border-transparent text-text-secondary hover:text-text-primary'
                 }`}
               >
-                {t.label}
-              </button>
             ))}
           </div>
           {tab === 'notes' ? <NotesSection notes={notes} onAddNote={handleAddNote} /> : <ActivityTimeline activities={activities} />}
