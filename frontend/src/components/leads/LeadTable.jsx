@@ -22,8 +22,8 @@ export default function LeadTable({ leads, loading, onEdit, onDelete }) {
     return (
       <EmptyState
         icon={Inbox}
-        title="No leads yet"
-        subtitle="Create your first lead to start tracking opportunities, or adjust your filters."
+        title="No leads found"
+        subtitle="No leads match your current search or filters. Try adjusting them or create a new lead."
       />
     );
   }
@@ -32,7 +32,7 @@ export default function LeadTable({ leads, loading, onEdit, onDelete }) {
     <div className="overflow-x-auto">
       <table className="w-full text-sm min-w-[900px]">
         <thead>
-          <tr className="text-left text-text-secondary border-b border-border">
+          <tr className="text-left text-xs uppercase tracking-wide text-text-secondary border-b border-border bg-background/50">
             <th className="font-medium py-3 px-4">Name</th>
             <th className="font-medium py-3 px-4">Company</th>
             <th className="font-medium py-3 px-4">Email</th>
@@ -60,6 +60,7 @@ export default function LeadTable({ leads, loading, onEdit, onDelete }) {
                   <button
                     onClick={() => navigate(`/leads/${lead._id}`)}
                     aria-label="View lead"
+                    title="View lead"
                     className="p-1.5 rounded-lg text-text-secondary hover:text-lavender hover:bg-lavender-light"
                   >
                     <Eye size={15} />
@@ -67,6 +68,7 @@ export default function LeadTable({ leads, loading, onEdit, onDelete }) {
                   <button
                     onClick={() => onEdit(lead)}
                     aria-label="Edit lead"
+                    title="Edit lead"
                     className="p-1.5 rounded-lg text-text-secondary hover:text-blue hover:bg-blue-light"
                   >
                     <Pencil size={15} />
@@ -74,6 +76,7 @@ export default function LeadTable({ leads, loading, onEdit, onDelete }) {
                   <button
                     onClick={() => onDelete(lead)}
                     aria-label="Delete lead"
+                    title="Delete lead"
                     className="p-1.5 rounded-lg text-text-secondary hover:text-rose hover:bg-rose/10"
                   >
                     <Trash2 size={15} />
