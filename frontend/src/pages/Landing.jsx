@@ -12,10 +12,10 @@ const FEATURES = [
 ];
 
 const STEPS = [
-  { number: '01', title: 'Capture', desc: 'Leads submit an inquiry through your public contact form.' },
-  { number: '02', title: 'Organize', desc: 'Every lead lands in your pipeline with status and priority.' },
-  { number: '03', title: 'Follow Up', desc: 'Track notes, schedule follow-ups, and never lose momentum.' },
-  { number: '04', title: 'Convert', desc: 'Turn qualified leads into clients and measure your results.' },
+  { number: '01', title: 'Capture', desc: 'Potential clients submit their project details through the public inquiry form.' },
+  { number: '02', title: 'Organize', desc: 'Each inquiry is automatically stored as a lead in the secure admin CRM.' },
+  { number: '03', title: 'Follow Up', desc: 'Admins can update lead status, add notes, and schedule follow-ups so no opportunity is missed.' },
+  { number: '04', title: 'Convert', desc: 'Admins move qualified leads through the pipeline and mark successful opportunities as converted.' },
 ];
 
 function Navbar() {
@@ -33,7 +33,9 @@ function Navbar() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-text-secondary">
+          <a href="#home" className="hover:text-text-primary">Home</a>
           <a href="#features" className="hover:text-text-primary">Features</a>
+          <a href="#about" className="hover:text-text-primary">About</a>
           <a href="#how-it-works" className="hover:text-text-primary">How It Works</a>
           <Link to="/contact" className="hover:text-text-primary">Contact</Link>
         </nav>
@@ -54,7 +56,9 @@ function Navbar() {
 
       {open && (
         <div className="md:hidden border-t border-border px-4 py-4 space-y-3 bg-background">
+          <a href="#home" onClick={() => setOpen(false)} className="block text-sm text-text-secondary">Home</a>          
           <a href="#features" onClick={() => setOpen(false)} className="block text-sm text-text-secondary">Features</a>
+          <a href="#about" onClick={() => setOpen(false)} className="block text-sm text-text-secondary">About</a>
           <a href="#how-it-works" onClick={() => setOpen(false)} className="block text-sm text-text-secondary">How It Works</a>
           <Link to="/contact" onClick={() => setOpen(false)} className="block text-sm text-text-secondary">Contact</Link>
           <Link to="/login" onClick={() => setOpen(false)} className="block bg-lavender text-white text-sm font-medium px-4 py-2 rounded-xl text-center">
@@ -72,7 +76,7 @@ export default function Landing() {
       <Navbar />
 
       {/* Hero */}
-      <section className="max-w-4xl mx-auto text-center px-4 sm:px-6 pt-20 pb-16">
+      <section id="home" className="max-w-4xl mx-auto text-center px-4 sm:px-6 pt-20 pb-16">
         <span className="inline-flex items-center gap-1.5 bg-lavender-light text-lavender text-xs font-medium px-3 py-1.5 rounded-full mb-5">
           <Sparkles size={12} /> Client Lead Management Platform
         </span>
@@ -80,20 +84,35 @@ export default function Landing() {
           Turn incoming leads into lasting clients.
         </h1>
         <p className="text-text-secondary mt-5 max-w-xl mx-auto">
-          LeadFlow helps businesses capture, organize, follow up with, and convert leads — all in one calm, focused workspace.
+          LeadFlow helps businesses capture, organize, follow up with, and convert 
+          client inquiries from one secure workspace.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8">
           <Link to="/contact" className="flex items-center gap-1.5 bg-lavender text-white font-medium px-6 py-3 rounded-xl hover:opacity-90 w-full sm:w-auto justify-center">
-            Get Started <ArrowRight size={16} />
+            Send an Inquiry <ArrowRight size={16} />
           </Link>
           <a href="#how-it-works" className="font-medium px-6 py-3 rounded-xl border border-border text-text-primary hover:border-lavender w-full sm:w-auto text-center">
-            View Demo
+            See How It Works
           </a>
         </div>
       </section>
 
       {/* Features */}
       <section id="features" className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <span className="text-xs font-semibold tracking-wide text-lavender">
+            FEATURES
+          </span>
+
+          <h2 className="text-2xl sm:text-3xl font-semibold text-text-primary mt-2">
+            Everything you need to manage leads
+          </h2>
+
+          <p className="text-text-secondary mt-3">
+            Capture inquiries, organize your pipeline, follow up with clients, and
+            track business performance from one workspace.
+          </p>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {FEATURES.map((f) => (
             <div key={f.title} className="bg-surface border border-border rounded-2xl p-6 shadow-card">
@@ -106,6 +125,20 @@ export default function Landing() {
           ))}
         </div>
       </section>
+
+      <div className="text-center max-w-2xl mx-auto">
+        <span className="text-xs font-semibold tracking-wide text-lavender">
+          WHO IT'S FOR
+        </span>
+
+        <h2 className="text-2xl sm:text-3xl font-semibold text-text-primary mt-2">
+          One system, two simple experiences
+        </h2>
+
+        <p className="text-text-secondary mt-3">
+          LeadFlow connects potential clients with the business team managing their inquiries.
+        </p>
+      </div>
 
       {/* How it works */}
       <section id="how-it-works" className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
@@ -124,8 +157,8 @@ export default function Landing() {
       {/* CTA */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 py-16 text-center">
         <div className="bg-lavender-light rounded-2xl p-10">
-          <h2 className="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Ready to organize your pipeline?</h2>
-          <p className="text-text-secondary mb-6">Submit an inquiry and see how LeadFlow keeps every conversation on track.</p>
+          <h2 className="text-xl sm:text-2xl font-semibold text-text-primary mb-3">See LeadFlow in action</h2>
+          <p className="text-text-secondary mb-6">Submit a sample inquiry and see how a new lead enters the CRM and can be managed by an admin. </p>
           <Link to="/contact" className="inline-flex items-center gap-1.5 bg-lavender text-white font-medium px-6 py-3 rounded-xl hover:opacity-90">
             Submit an Inquiry <ArrowRight size={16} />
           </Link>
