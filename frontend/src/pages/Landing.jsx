@@ -126,7 +126,7 @@ export default function Landing() {
         </div>
       </section>
 
-      <div className="text-center max-w-2xl mx-auto">
+      <div id="about" className="text-center max-w-2xl mx-auto">
         <span className="text-xs font-semibold tracking-wide text-lavender">
           WHO IT'S FOR
         </span>
