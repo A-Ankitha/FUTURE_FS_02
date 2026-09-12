@@ -123,20 +123,22 @@ export default function Landing() {
           ))}
         </div>
       </section>
+      
+      <section id="about" className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <div className="text-center max-w-2xl mx-auto">
+          <span id="about" className="text-xs font-semibold tracking-wide text-lavender">
+            WHO IT'S FOR
+          </span>
 
-      <div className="text-center max-w-2xl mx-auto">
-        <span id="about" className="text-xs font-semibold tracking-wide text-lavender">
-          WHO IT'S FOR
-        </span>
+          <h2 className="text-2xl sm:text-3xl font-semibold text-text-primary mt-2">
+            One system, two simple experiences
+          </h2>
 
-        <h2 className="text-2xl sm:text-3xl font-semibold text-text-primary mt-2">
-          One system, two simple experiences
-        </h2>
-
-        <p className="text-text-secondary mt-3">
-          LeadFlow connects potential clients with the business team managing their inquiries.
-        </p>
-      </div>
+          <p className="text-text-secondary mt-3">
+            LeadFlow connects potential clients with the business team managing their inquiries.
+          </p>
+        </div>
+      </section>
 
       {/* How it works */}
       <section id="how-it-works" className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
