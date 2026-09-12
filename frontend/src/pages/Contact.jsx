@@ -191,7 +191,7 @@ export default function Contact() {
                 <div className="mt-4 text-center">
                   <Link
                     to="/"
-                    className="text-sm font-medium text-lavender hover:underline"
+                    className="text-sm font-medium text-lavender hover:boldtext"
                   >
                     ← Back to home
                   </Link>
