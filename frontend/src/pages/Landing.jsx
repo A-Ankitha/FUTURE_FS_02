@@ -36,7 +36,6 @@ function Navbar() {
           <a href="#home" className="hover:text-text-primary">Home</a>
           <a href="#features" className="hover:text-text-primary">Features</a>
           <a href="#about" className="hover:text-text-primary">About</a>
-          <a href="#how-it-works" className="hover:text-text-primary">How It Works</a>
           <Link to="/contact" className="hover:text-text-primary">Contact</Link>
         </nav>
 
@@ -59,7 +58,6 @@ function Navbar() {
           <a href="#home" onClick={() => setOpen(false)} className="block text-sm text-text-secondary">Home</a>          
           <a href="#features" onClick={() => setOpen(false)} className="block text-sm text-text-secondary">Features</a>
           <a href="#about" onClick={() => setOpen(false)} className="block text-sm text-text-secondary">About</a>
-          <a href="#how-it-works" onClick={() => setOpen(false)} className="block text-sm text-text-secondary">How It Works</a>
           <Link to="/contact" onClick={() => setOpen(false)} className="block text-sm text-text-secondary">Contact</Link>
           <Link to="/login" onClick={() => setOpen(false)} className="block bg-lavender text-white text-sm font-medium px-4 py-2 rounded-xl text-center">
             Admin Login
