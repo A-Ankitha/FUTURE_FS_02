@@ -1,161 +1,466 @@
-# LeadFlow
+````
+# LeadFlow — Mini CRM
 
-**Client Lead Management Platform** — a full-stack MERN CRM built for Future Interns Task 2.
+LeadFlow is a full-stack Customer Relationship Management (CRM) application built to help businesses manage potential clients and sales leads from a single workspace.
 
-LeadFlow lets a business capture leads from a public website contact form, manage them through a secure admin dashboard, track follow-ups, and monitor conversion — with every number on screen backed by real MongoDB data end to end. No hardcoded dashboards, no fake API calls.
+The application provides a public inquiry form for potential clients and a secure admin dashboard where business teams can organize leads, track follow-ups, add notes, monitor activity, and analyze pipeline performance.
 
-## Features
+## ✨ Features
 
-**Public site**
-- Polished landing page (hero, features, how-it-works, CTA, footer)
-- Public contact form that creates a real lead in the database (`New` status, `Medium` priority, initial activity entry)
+### 🌐 Public Website
 
-**Authentication & authorization**
-- JWT-based admin login/register, bcrypt password hashing
-- Every admin API route protected server-side (`authMiddleware.protect`) — not just hidden on the frontend
-- Protected React routes redirect unauthenticated users to `/login`
+- Responsive landing page introducing LeadFlow
+- Features section explaining the CRM capabilities
+- "Who It's For" section for potential clients and business admins
+- How It Works workflow
+- Public contact/inquiry form
+- Inquiry confirmation screen
+- Light and dark theme support
+- Responsive navigation for desktop and mobile
 
-**Dashboard**
-- KPI cards: Total Leads, New, Contacted, Converted, Conversion Rate — computed from the database, not hardcoded
-- Lead Status Distribution (pie) and Leads by Source (bar) charts via Recharts
-- Recent Leads list and Upcoming Follow-ups with overdue count highlighted
+### 📩 Lead Capture
 
-**Lead management**
-- Full CRUD (`+ Add Lead`, edit, delete — all persisted)
-- Backend-driven search (name/email/company), filters (status/priority/source/date), sort (newest/oldest/name/priority/follow-up date), and pagination
-- Status pipeline: New → Contacted → Qualified → Converted → Lost, with automatic `lastContacted`/`convertedAt` stamping and activity logging
+Potential clients can submit:
 
-**Lead detail page**
-- Contact & lead information, original message
-- Notes (persisted, timestamped, attributed to the admin who wrote them)
-- Full activity timeline (created, status changes, notes, follow-ups, conversion)
+- Full name
+- Email address
+- Phone number
+- Company
+- Inquiry source
+- Service of interest
+- Project/inquiry message
 
-**Follow-ups**
-- Overdue / Today / Upcoming board, computed server-side from real dates
-- Inline rescheduling, logged as an activity
+Submitted inquiries are automatically stored as leads in the CRM.
 
-**Analytics**
-- Conversion rate, converted/lost counts, leads by source, leads by status, 30-day lead growth trend — all real aggregation queries
+### 🔐 Admin Authentication
 
-**Design system**
-- Light mode: pastel lavender/mint SaaS palette. Dark mode: premium deep-purple palette. Both driven by CSS variables/Tailwind tokens
-- Theme toggle persisted to `localStorage`, with a pre-mount script in `index.html` to avoid a flash of the wrong theme
-- Responsive: sidebar becomes a mobile drawer, tables scroll horizontally, forms collapse to single-column, KPI/chart grids reflow
+- Secure admin login
+- JWT-based authentication
+- Protected dashboard routes
+- Password hashing using bcrypt
+- Authentication state persistence
+- Automatic removal of invalid authentication tokens
+- Logout functionality
+- Password visibility toggle on the login form
 
-**UX polish**
-- Toast notifications, skeleton loaders, polished empty states, inline validation, centralized backend error handling with clean HTTP status codes
+### 👥 Lead Management
 
-## Tech Stack
+Admins can:
 
-- **Frontend:** React (Vite), React Router, Tailwind CSS, Axios, Recharts, Lucide React
-- **Backend:** Node.js, Express, Mongoose, JWT, bcryptjs, dotenv, cors, express-validator
-- **Database:** MongoDB (Atlas-compatible)
+- View all leads
+- Add new leads
+- Edit existing leads
+- Delete leads
+- View detailed lead information
+- Update lead status
+- Set lead priority
+- Assign lead source
+- Schedule follow-up dates
+- Search leads by name, email, or company
+- Filter leads by status, priority, and source
+- Sort leads by:
+  - Newest
+  - Oldest
+  - Name
+  - Priority
+  - Follow-up date
+- Clear active filters
 
-## Architecture
+### 📝 Notes & Activity Tracking
 
-```
-Public Contact Form → REST API → MongoDB → Admin Dashboard → Follow-up → Conversion
-```
+Each lead can contain internal notes and an activity history.
 
-```
-backend/
-├── config/db.js
-├── controllers/   authController, leadController, noteController,
-│                  activityController, analyticsController, publicController
-├── middleware/    authMiddleware, errorMiddleware, validationMiddleware
-├── models/        User, Lead, Note, Activity
-├── routes/        authRoutes, leadRoutes, noteRoutes, activityRoutes,
-│                  analyticsRoutes, publicRoutes
-├── utils/         generateToken.js, seedData.js
-└── server.js
+The activity timeline records events such as:
 
-frontend/src/
-├── components/    layout/, dashboard/, leads/, charts/, common/
-├── pages/         Landing, Contact, Login, Dashboard, Leads, LeadDetails,
-│                  FollowUps, Analytics, Settings
-├── context/       AuthContext, ThemeContext, ToastContext
-├── hooks/         useDebounce
-├── services/      api.js (Axios instance with JWT interceptor)
-└── App.jsx, main.jsx, index.css
-```
+- Lead creation
+- Lead updates
+- Status changes
+- Notes added
+- Follow-ups scheduled
+- Follow-ups updated
+- Lead conversion
 
-## Installation
+### 📅 Follow-up Management
+
+Admins can view upcoming follow-ups and:
+
+- See leads requiring follow-up
+- Open the associated lead
+- Reschedule follow-up dates
+
+### 📊 Analytics
+
+The analytics section provides an overview of the lead pipeline, including:
+
+- Total leads
+- New leads
+- Converted leads
+- Conversion rate
+- Lead creation trends
+- Lead status distribution
+- Lead source distribution
+
+### ⚙️ Settings
+
+The settings page currently provides:
+
+- Admin account information
+- Authentication/security information
+- Light/dark theme switching
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- React
+- Vite
+- React Router
+- Tailwind CSS
+- Axios
+- Recharts
+- Lucide React
+
+### Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JSON Web Tokens (JWT)
+- bcrypt
+- CORS
+
+### Deployment
+
+- Vercel — Frontend
+- Render — Backend
+- MongoDB Atlas — Database
+
+## 📁 Project Structure
+
+```text
+FUTURE_FS_02-main/
+│
+├── backend/
+│   ├── config/
+│   │   └── db.js
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── seedData.js
+│   ├── server.js
+│   └── package.json
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── data/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── utils/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── vercel.json
+│   └── package.json
+│
+└── README.md
+````
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Make sure you have installed:
+
+* Node.js
+* npm
+* MongoDB or a MongoDB Atlas database
+
+### 1. Clone the repository
 
 ```bash
-# Backend
+git clone <your-repository-url>
+cd FUTURE_FS_02-main
+```
+
+### 2. Install backend dependencies
+
+```bash
 cd backend
 npm install
-cp .env.example .env   # fill in MONGO_URI and JWT_SECRET
-npm run dev             # http://localhost:5000
+```
 
-# Frontend (separate terminal)
+### 3. Configure backend environment variables
+
+Create a `.env` file inside the `backend` directory:
+
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secure_jwt_secret
+CLIENT_URL=http://localhost:5173
+PORT=5000
+```
+
+### 4. Start the backend
+
+```bash
+npm start
+```
+
+The backend will run at:
+
+```text
+http://localhost:5000
+```
+
+### 5. Install frontend dependencies
+
+Open another terminal:
+
+```bash
 cd frontend
 npm install
-cp .env.example .env
-npm run dev             # http://localhost:5173
 ```
 
-## Environment Variables
+### 6. Configure the frontend environment
 
-**backend/.env**
-```
-MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/leadflow
-JWT_SECRET=replace_with_a_long_random_string
-JWT_EXPIRES_IN=7d
-PORT=5000
-CLIENT_URL=http://localhost:5173
+Create:
+
+```text
+frontend/.env
 ```
 
-**frontend/.env**
-```
+Add:
+
+```env
 VITE_API_URL=http://localhost:5000/api
 ```
 
-## Running Locally
+### 7. Start the frontend
 
-1. Start MongoDB (Atlas cluster, or a local `mongod` instance) and set `MONGO_URI` accordingly.
-2. `cd backend && npm run dev` — starts the API on port 5000 and confirms the Mongo connection in the console.
-3. (Optional but recommended) `npm run seed` — clears existing leads/notes/activities and populates ~42 realistic demo leads across every status, priority, and source, plus a demo admin:
-   - **Email:** `admin@leadflow.dev`
-   - **Password:** `admin123`
-4. `cd frontend && npm run dev` — starts the React app on port 5173.
-5. Visit `http://localhost:5173`, log in with the seeded admin (or register your own via `POST /api/auth/register`), and explore the dashboard.
-6. Visit `http://localhost:5173/contact` in a separate tab to submit a real lead through the public form and watch it appear in the CRM.
-
-## API Documentation
-
+```bash
+npm run dev
 ```
-POST   /api/auth/register              { name, email, password }
-POST   /api/auth/login                 { email, password }
-GET    /api/auth/me
 
-GET    /api/leads                      ?page=&limit=&search=&status=&priority=&source=&sort=&startDate=&endDate=
-GET    /api/leads/:id
+The frontend will normally be available at:
+
+```text
+http://localhost:5173
+```
+
+## 🌱 Demo Data
+
+The project includes a seed script for creating demo data.
+
+From the `backend` directory:
+
+```bash
+npm run seed
+```
+
+The seed script creates a demo admin account and sample leads for testing.
+
+### Demo Admin
+
+```text
+Email: admin@leadflow.dev
+Password: admin123
+```
+
+> These credentials are intended for local/demo testing and should not be used as production credentials.
+
+The seed script clears existing Lead, Note, and Activity data before recreating the demo dataset. **Do not run it against a production database unless you intentionally want to reset that data.**
+
+## 🔌 API Overview
+
+The backend exposes REST API endpoints for authentication, lead management, notes, activities, follow-ups, analytics, and public inquiries.
+
+### Authentication
+
+```text
+POST /api/auth/login
+POST /api/auth/register
+GET  /api/auth/me
+```
+
+### Leads
+
+```text
+GET    /api/leads
 POST   /api/leads
+GET    /api/leads/:id
 PUT    /api/leads/:id
-PATCH  /api/leads/:id/status           { status }
-PATCH  /api/leads/:id/followup         { followUpDate }
 DELETE /api/leads/:id
-GET    /api/leads/followups/board      → { overdue, today, upcoming }
-
-GET    /api/leads/:id/notes
-POST   /api/leads/:id/notes            { text }
-GET    /api/leads/:id/activities
-
-GET    /api/analytics/overview
-GET    /api/analytics/sources
-GET    /api/analytics/status
-GET    /api/analytics/trends           ?days=30
-
-POST   /api/public/contact             { name, email, phone, company, source, service, message }  — no auth, powers /contact
 ```
 
-All routes except `/api/auth/register`, `/api/auth/login`, and `/api/public/contact` require `Authorization: Bearer <token>`.
+### Notes
 
-## Future Improvements
+```text
+GET  /api/leads/:id/notes
+POST /api/leads/:id/notes
+```
 
-- Email notifications for new leads and upcoming follow-ups
-- Multi-admin team accounts with role-based permissions
-- Automated lead scoring based on engagement signals
-- Integrations with email/calendar providers
-- Real password-change and profile-update endpoints (currently UI-only placeholders in Settings)
+### Activities
+
+```text
+GET /api/leads/:id/activities
+```
+
+### Follow-ups
+
+Follow-up information is available through the lead management API and is displayed through the Follow-ups section of the dashboard.
+
+### Analytics
+
+```text
+GET /api/analytics/overview
+```
+
+### Public Inquiry
+
+```text
+POST /api/public/contact
+```
+
+The public inquiry endpoint does not require admin authentication.
+
+## 🔎 Lead Search & Filtering
+
+LeadFlow supports server-side lead searching and filtering.
+
+Search can match:
+
+* Name
+* Email
+* Company
+
+Available filters include:
+
+* Status
+* Priority
+* Source
+
+Available sorting options include:
+
+* Newest
+* Oldest
+* Name
+* Priority
+* Follow-up date
+
+The frontend also provides a **Clear Filters** action for quickly resetting the lead list.
+
+## 🔒 Security
+
+The application includes several security measures:
+
+* JWT-based authentication
+* Password hashing with bcrypt
+* Protected API routes
+* Protected frontend dashboard routes
+* Authentication token stored in browser local storage
+* CORS configuration
+* Environment variables for sensitive configuration
+* Server-side authentication middleware
+* Input validation on lead and inquiry forms
+
+Sensitive environment variables such as database credentials and JWT secrets should never be committed to the repository.
+
+## 🎨 UI & Accessibility
+
+LeadFlow was designed with a clean, responsive CRM interface.
+
+The application includes:
+
+* Light mode
+* Dark mode
+* Responsive layouts
+* Accessible form labels
+* Keyboard-friendly controls
+* Form validation and error messages
+* Loading states for asynchronous actions
+* Empty states for sections without data
+* Descriptive buttons and controls
+* Consistent visual hierarchy
+
+## 🌍 Live Demo
+
+### Frontend
+
+[https://future-fs-02-five-alpha.vercel.app](https://future-fs-02-five-alpha.vercel.app)
+
+The production frontend is deployed using Vercel.
+
+The backend is deployed separately using Render and communicates with the frontend through the configured API URL.
+
+## ☁️ Deployment
+
+### Frontend — Vercel
+
+The frontend requires:
+
+```env
+VITE_API_URL=https://your-render-backend.onrender.com/api
+```
+
+A Vercel rewrite is included in:
+
+```text
+frontend/vercel.json
+```
+
+to support client-side React Router routes.
+
+### Backend — Render
+
+The backend requires:
+
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secure_jwt_secret
+CLIENT_URL=https://your-vercel-frontend.vercel.app
+```
+
+Render provides the `PORT` environment variable automatically.
+
+The normal production start command is:
+
+```bash
+npm start
+```
+
+The seed command should only be used intentionally when demo data needs to be created or reset.
+
+### Database — MongoDB Atlas
+
+MongoDB Atlas is used as the production database.
+
+The connection string is supplied through:
+
+```env
+MONGO_URI
+```
+
+## 📌 Project Purpose
+
+This project was developed as part of the **Future Interns Full Stack Web Development Task 2 — Mini CRM / Client Lead Management System**.
+
+The primary goal is to demonstrate a practical full-stack workflow where public client inquiries are captured and then managed by an authenticated business administrator through a CRM dashboard.
+
+## 🔮 Future Improvements
+
+Potential future enhancements include:
+
+* Real password-change functionality
+* Profile editing
+* Role-based access control
+* Email notifications for new inquiries
+* Automated follow-up reminders
+* Advanced reporting and export
+* Pagination for larger lead datasets
+* More detailed audit logging
+* Custom CRM fields
+* Integration with external communication and calendar services
