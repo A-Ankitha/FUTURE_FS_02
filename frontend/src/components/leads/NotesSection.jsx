@@ -23,6 +23,9 @@ export default function NotesSection({ notes, onAddNote }) {
     <div>
       <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
         <input
+          id="lead-note"
+          type="text"
+          autoComplete="off"
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Add a note..."

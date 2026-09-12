@@ -96,8 +96,7 @@ export default function Contact() {
               <p className="text-sm text-text-secondary mb-6">
                 Tell us about your project and our team will review your inquiry and follow up.
               </p>
-              <p className="text-sm text-text-secondary mb-6">Tell us a bit about your project and we'll follow up.</p>
-
+              
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="col-span-2 sm:col-span-1">
@@ -187,10 +186,16 @@ export default function Contact() {
                 >
                   {submitting ? 'Sending...' : 'Send Inquiry'}
                 </button>
-                <Link to="/" className="text-sm font-medium text-lavender hover:underline">
-                  ← Back to home
-                </Link>
-              </form>
+                </form>
+
+                <div className="mt-4 text-center">
+                  <Link
+                    to="/"
+                    className="text-sm font-medium text-lavender hover:underline"
+                  >
+                    ← Back to home
+                  </Link>
+                </div>
             </div>
           )}
         </div>
