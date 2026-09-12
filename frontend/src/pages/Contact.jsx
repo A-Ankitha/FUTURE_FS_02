@@ -16,8 +16,21 @@ export default function Contact() {
 
   const validate = () => {
     const next = {};
-    if (!form.name.trim()) next.name = 'Name is required';
-    if (!/^\S+@\S+\.\S+$/.test(form.email)) next.email = 'Enter a valid email';
+
+    if (!form.name.trim()) {
+      next.name = 'Name is required';
+    }
+
+    if (!form.email.trim()) {
+      next.email = 'Email is required';
+    } else if (!/^\S+@\S+\.\S+$/.test(form.email.trim())) {
+      next.email = 'Enter a valid email';
+    }
+
+    if (form.phone.trim() && !/^[+\d\s()-]{7,20}$/.test(form.phone.trim())) {
+      next.phone = 'Enter a valid phone number';
+    }
+
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -28,7 +41,15 @@ export default function Contact() {
     if (!validate()) return;
     setSubmitting(true);
     try {
-      await api.post('/public/contact', form);
+      await api.post('/public/contact', {
+        ...form,
+        name: form.name.trim(),
+        email: form.email.trim().toLowerCase(),
+        phone: form.phone.trim(),
+        company: form.company.trim(),
+        service: form.service.trim(),
+        message: form.message.trim(),
+      });
       setSubmitted(true);
       setForm(EMPTY_FORM);
     } catch (err) {
@@ -69,24 +90,62 @@ export default function Contact() {
             </div>
           ) : (
             <div className="bg-surface border border-border rounded-2xl shadow-card p-6 sm:p-8">
-              <h1 className="text-xl font-semibold text-text-primary mb-1">Get in touch</h1>
+              <h1 className="text-xl font-semibold text-text-primary mb-1">
+                Send an Inquiry
+              </h1>
+              <p className="text-sm text-text-secondary mb-6">
+                Tell us about your project and our team will review your inquiry and follow up.
+              </p>
               <p className="text-sm text-text-secondary mb-6">Tell us a bit about your project and we'll follow up.</p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="col-span-2 sm:col-span-1">
                     <label className="block text-xs font-medium text-text-secondary mb-1">Full Name *</label>
-                    <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={inputClass('name')} />
+                    <input
+                      id="contact-name"
+                      type="text"
+                      autoComplete="name"
+                      value={form.name}
+                      onChange={(e) => {
+                        setForm({ ...form, name: e.target.value });
+                        if (errors.name) setErrors({ ...errors, name: '' });
+                      }}
+                      className={inputClass('name')}
+                    />
                     {errors.name && <p className="text-xs text-rose mt-1">{errors.name}</p>}
                   </div>
                   <div className="col-span-2 sm:col-span-1">
                     <label className="block text-xs font-medium text-text-secondary mb-1">Email *</label>
-                    <input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputClass('email')} />
+                    <input
+                      id="contact-email"
+                      type="email"
+                      autoComplete="email"
+                      value={form.email}
+                      onChange={(e) => {
+                        setForm({ ...form, email: e.target.value });
+                        if (errors.email) setErrors({ ...errors, email: '' });
+                      }}
+                      className={inputClass('email')}
+                    />
                     {errors.email && <p className="text-xs text-rose mt-1">{errors.email}</p>}
                   </div>
                   <div className="col-span-2 sm:col-span-1">
                     <label className="block text-xs font-medium text-text-secondary mb-1">Phone</label>
-                    <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={inputClass('phone')} />
+                    <input
+                      id="contact-phone"
+                      type="tel"
+                      autoComplete="tel"
+                      value={form.phone}
+                      onChange={(e) => {
+                        setForm({ ...form, phone: e.target.value });
+                        if (errors.phone) setErrors({ ...errors, phone: '' });
+                      }}
+                      className={inputClass('phone')}
+                    />
+                    {errors.phone && (
+                      <p className="text-xs text-rose mt-1">{errors.phone}</p>
+                    )}
                   </div>
                   <div className="col-span-2 sm:col-span-1">
                     <label className="block text-xs font-medium text-text-secondary mb-1">Company</label>
@@ -107,9 +166,13 @@ export default function Contact() {
                   <div className="col-span-2">
                     <label className="block text-xs font-medium text-text-secondary mb-1">Message</label>
                     <textarea
-                      rows={4}
+                      id="contact-message"
+                      rows={5}
+                      placeholder="Tell us about your project or inquiry..."
                       value={form.message}
-                      onChange={(e) => setForm({ ...form, message: e.target.value })}
+                      onChange={(e) =>
+                        setForm({ ...form, message: e.target.value })
+                      }
                       className={inputClass('message')}
                     />
                   </div>
@@ -124,6 +187,9 @@ export default function Contact() {
                 >
                   {submitting ? 'Sending...' : 'Send Inquiry'}
                 </button>
+                <Link to="/" className="text-sm font-medium text-lavender hover:underline">
+                  ← Back to home
+                </Link>
               </form>
             </div>
           )}
