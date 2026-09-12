@@ -1,4 +1,4 @@
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 
 const STATUSES = ['All', 'New', 'Contacted', 'Qualified', 'Converted', 'Lost'];
 const PRIORITIES = ['All', 'Low', 'Medium', 'High'];
@@ -11,8 +11,25 @@ const SORTS = [
   { value: 'followUpDate', label: 'Follow-up date' },
 ];
 
+const DEFAULT_FILTERS = {
+  search: '',
+  status: 'All',
+  priority: 'All',
+  source: 'All',
+  sort: 'newest',
+};
+
 export default function LeadFilters({ filters, onChange }) {
   const set = (key, value) => onChange({ ...filters, [key]: value });
+
+  const hasActiveFilters =
+    filters.search ||
+    filters.status !== 'All' ||
+    filters.priority !== 'All' ||
+    filters.source !== 'All' ||
+    filters.sort !== 'newest';
+
+  const clearFilters = () => onChange(DEFAULT_FILTERS);
 
   const selectClass =
     'px-3 py-2 rounded-xl border border-border bg-surface text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-lavender/50 focus:border-lavender';
@@ -61,6 +78,18 @@ export default function LeadFilters({ filters, onChange }) {
           </option>
         ))}
       </select>
+
+      {hasActiveFilters && (
+        <button
+          type="button"
+          onClick={clearFilters}
+          className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-border bg-surface text-text-secondary text-sm hover:text-text-primary hover:border-lavender transition-colors"
+        >
+          <X size={15} />
+          Clear
+        </button>
+      )}
+      
     </div>
   );
 }
